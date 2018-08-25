@@ -1,5 +1,6 @@
 package org.chase.chat.simplexchat.chatmembers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.chase.chat.simplexchat.chat.ChatEntity;
 import org.chase.chat.simplexchat.user.UserEntity;
@@ -8,10 +9,12 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "bridge_chat_user")
+@Table
 @IdClass(ChatUserBridgeId.class)
 public class ChatUserBridgeEntity {
+
     @Id
+    @GeneratedValue
     @Column(name = "bridge_chat_user_id")
     private long chatUserId;
 
@@ -23,10 +26,12 @@ public class ChatUserBridgeEntity {
     @Column(name = "bridge_user_id")
     private String userId;
 
+    @JsonIgnore
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "bridge_user_id", referencedColumnName = "user_id")
     private UserEntity user;
 
+    @JsonIgnore
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "bridge_chat_id", referencedColumnName = "chat_id")
     private ChatEntity chat;

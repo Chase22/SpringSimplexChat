@@ -29,30 +29,13 @@ public class ChatController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Chat>> getAllChats() {
-        return new ResponseEntity<>(
-                IteratorUtils.toList(
-                        chatService.getAllChats()
-                                .iterator())
-                        .stream()
-                        .map(ChatEntity::toBusinessObject)
-                        .collect(Collectors.toList()
-                        ), HttpStatus.OK);
-    }
-
-    @GetMapping("/byUserId/{id}")
-    public ResponseEntity<List<Chat>> getAllChatsByUserID(@PathVariable("id") final String userID) {
-        return new ResponseEntity<>(
-                userService.getUserById(userID)
-                        .getChats()
-                        .stream()
-                        .map(ChatEntity::toBusinessObject)
-                        .collect(Collectors.toList()), HttpStatus.OK);
+    public ResponseEntity<List<ChatEntity>> getAllChats() {
+        return new ResponseEntity<>(IteratorUtils.toList(chatService.getAllChats().iterator()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Chat> getChat(@PathVariable("id") final String id) {
-        return new ResponseEntity<>(chatService.getChatById(id).toBusinessObject(), HttpStatus.OK);
+    public ResponseEntity<ChatEntity> getChat(@PathVariable("id") final String id) {
+        return new ResponseEntity<>(chatService.getChatById(id), HttpStatus.OK);
     }
 
     @PostMapping("")
