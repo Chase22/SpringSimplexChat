@@ -19,12 +19,7 @@ public class UserEntity {
     @Column(name = "user_passwd")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name="user_chat",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "chat_id")
-    )
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<ChatEntity> chats;
 
 }

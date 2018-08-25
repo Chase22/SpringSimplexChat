@@ -17,7 +17,7 @@ public class ChatEntity {
     @Column(name = "chat_name")
     private String name;
 
-    @ManyToMany(mappedBy = "chats", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chat")
     private List<UserEntity> users;
 
     public ChatEntity() {}

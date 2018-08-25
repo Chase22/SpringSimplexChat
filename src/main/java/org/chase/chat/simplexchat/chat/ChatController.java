@@ -56,7 +56,7 @@ public class ChatController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Chat> insertChat(@RequestBody final Chat chatEntity) {
+    public ResponseEntity<ChatEntity> insertChat(@RequestBody final ChatEntity chatEntity) {
         chatService.insertOrUpdate(chatEntity);
         return new ResponseEntity<>(chatEntity, HttpStatus.OK);
     }

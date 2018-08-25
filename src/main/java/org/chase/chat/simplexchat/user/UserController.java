@@ -33,9 +33,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUser(@PathVariable("id") final String id) {
-        Optional<UserEntity> user = userService.getUserById(id);
 
-        return user.map(userEntity1 -> new ResponseEntity<>(userEntity1, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -52,9 +51,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") final String id) {
-        userService.getUserById(id).ifPresent(chat ->  {
-            userService.deleteChatById(id);
-        });
+        userService.deleteChatById(id);
     }
 
 }
