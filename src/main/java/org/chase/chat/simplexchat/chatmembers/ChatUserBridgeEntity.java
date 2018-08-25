@@ -1,4 +1,4 @@
-package org.chase.chat.simplexchat.ChatMembers;
+package org.chase.chat.simplexchat.chatmembers;
 
 import lombok.Data;
 import org.chase.chat.simplexchat.chat.ChatEntity;
