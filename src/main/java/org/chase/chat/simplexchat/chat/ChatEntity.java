@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.chase.chat.simplexchat.chatmembers.ChatUserBridgeEntity;
+import org.chase.chat.simplexchat.message.MessageEntity;
 import org.chase.chat.simplexchat.user.UserEntity;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,6 +27,9 @@ public class ChatEntity {
 
     @OneToMany(mappedBy = "chat")
     private List<ChatUserBridgeEntity> users = new ArrayList<>();
+
+    @OneToMany(mappedBy = "chat")
+    private List<MessageEntity> messages;
 
     public ChatEntity() {}
 
