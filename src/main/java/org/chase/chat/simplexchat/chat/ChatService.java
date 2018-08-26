@@ -1,9 +1,9 @@
 package org.chase.chat.simplexchat.chat;
 
-import javassist.NotFoundException;
+import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -20,8 +20,8 @@ public class ChatService {
         return chatRepository.findById(id).orElseThrow(() -> new NullPointerException("Chat with id "+id+" could not be found"));
     }
 
-    public Iterable<ChatEntity> getAllChats() {
-        return chatRepository.findAll();
+    public List<ChatEntity> getAllChats() {
+        return IteratorUtils.toList(chatRepository.findAll().iterator());
     }
 
     public void insertOrUpdate(final ChatEntity chatEntity) {

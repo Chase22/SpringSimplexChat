@@ -29,23 +29,20 @@ public class TestController {
             testUser.setName("Name");
             testUser.setPassword("secret");
 
-            userService.insertOrUpdate(testUser);
+            for (int i = 0; i < 50; i++) {
+                ChatEntity chat = new ChatEntity();
+                chat.setName("Test Chat " + i);
 
-            ChatEntity chat = new ChatEntity();
-            chat.setName("Test Chat");
+                chatService.insertOrUpdate(chat);
+            }
 
-            chatService.insertOrUpdate(chat);
-
-            ChatEntity chat2 = new ChatEntity();
-            chat2.setName("New Test Chat");
-
-            chatService.insertOrUpdate(chat2);
-
+            /*
             chat.addUser(testUser);
             chat2.addUser(testUser);
 
             chat.getUsers().forEach(chatUserBridgeService::save);
             chat2.getUsers().forEach(chatUserBridgeService::save);
+            */
 
         } catch (Exception e) {
             e.printStackTrace();
