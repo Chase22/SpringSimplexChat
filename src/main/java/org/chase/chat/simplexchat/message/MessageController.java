@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import static java.util.Objects.requireNonNull;
 
-@RestApiController("message")
+@RestApiController("api/message")
 public class MessageController {
 
     private final MessageService messageService;

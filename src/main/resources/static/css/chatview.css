@@ -1,0 +1,10 @@
+.userlist {
+    list-style-type: none;
+}
+
+.userbox {
+    border-radius: 5px;
+    border: 2px solid dodgerblue;
+    background-color: lightblue;
+    margin: 5px;
+}

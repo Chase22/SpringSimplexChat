@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../static/css/chatview.css" th:href="@{/css/chatview.css}" rel="stylesheet" />
+</head>
+<body>
+    <b>Users:</b>
+        <th:block th:each="item : ${users}">
+            <span class="userbox" th:text="${item.name}"></span>
+        </th:block>
+    </ul>
+</body>
+</html>

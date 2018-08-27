@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
-@RestApiController("user")
+@RestApiController("api/user")
 public class UserController {
     private final UserService userService;
 

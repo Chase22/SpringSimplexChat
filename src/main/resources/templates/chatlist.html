@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <th:block th:each="item : ${chats}">
+            <li><a th:href="@{/ui/chat/{id}(id=${item.id})}"><span th:text="${item.name}"></span></a></li>
+        </th:block>
+    </ul>
+</body>
+</html>

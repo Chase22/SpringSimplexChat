@@ -1,6 +1,8 @@
 package org.chase.chat.simplexchat.chat;
 
 import org.apache.commons.collections4.IteratorUtils;
+import org.chase.chat.simplexchat.chatmembers.ChatUserBridgeService;
+import org.chase.chat.simplexchat.user.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,11 @@ import static java.util.Objects.requireNonNull;
 @Service
 public class ChatService {
     private final ChatRepository chatRepository;
+    private final ChatUserBridgeService chatUserBridgeService;
 
-    public ChatService(final ChatRepository chatRepository) {
+    public ChatService(final ChatRepository chatRepository, ChatUserBridgeService chatUserBridgeService) {
         this.chatRepository = requireNonNull(chatRepository, "chatRepository");
+        this.chatUserBridgeService = requireNonNull(chatUserBridgeService, "chatUserBridgeService");
     }
 
     public ChatEntity getChatById(final String id) {
@@ -30,6 +34,11 @@ public class ChatService {
 
     public void deleteChatById(String id) {
         chatRepository.deleteById(id);
+    }
+
+    @SuppressWarnings("Deprecated")
+    public void addUserToChat(ChatEntity chat, UserEntity user) {
+        chatUserBridgeService.save(chat.addUser(user));
     }
 
 }

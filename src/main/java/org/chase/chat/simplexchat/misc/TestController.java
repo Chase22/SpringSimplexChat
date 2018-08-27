@@ -2,15 +2,16 @@ package org.chase.chat.simplexchat.misc;
 
 import org.chase.chat.simplexchat.chat.ChatEntity;
 import org.chase.chat.simplexchat.chat.ChatService;
-import org.chase.chat.simplexchat.chatmembers.ChatUserBridgeEntity;
 import org.chase.chat.simplexchat.chatmembers.ChatUserBridgeService;
+import org.chase.chat.simplexchat.security.ApplicationSecurity;
 import org.chase.chat.simplexchat.user.UserEntity;
 import org.chase.chat.simplexchat.user.UserService;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.annotation.PostConstruct;
 
 @Component
-@RestApiController("test")
+@RestApiController("api/test")
 public class TestController {
     private final ChatService chatService;
     private final UserService userService;
@@ -22,27 +23,28 @@ public class TestController {
         this.chatUserBridgeService = chatUserBridgeService;
     }
 
-    @GetMapping("test")
-    public void testDatabase() {
+    @PostConstruct
+    public void injectTestData() {
         try {
             UserEntity testUser = new UserEntity();
-            testUser.setName("Name");
-            testUser.setPassword("secret");
+            testUser.setName("user");
+            testUser.setPassword(ApplicationSecurity.getPasswordEncoder().encode("password"));
+            userService.insertOrUpdate(testUser);
+
+            UserEntity testUser2 = new UserEntity();
+            testUser2.setName("Name2");
+            testUser2.setPassword("secret");
+            userService.insertOrUpdate(testUser2);
 
             for (int i = 0; i < 50; i++) {
                 ChatEntity chat = new ChatEntity();
                 chat.setName("Test Chat " + i);
 
                 chatService.insertOrUpdate(chat);
+
+                chatService.addUserToChat(chat, testUser);
+                chatService.addUserToChat(chat, testUser2);
             }
-
-            /*
-            chat.addUser(testUser);
-            chat2.addUser(testUser);
-
-            chat.getUsers().forEach(chatUserBridgeService::save);
-            chat2.getUsers().forEach(chatUserBridgeService::save);
-            */
 
         } catch (Exception e) {
             e.printStackTrace();

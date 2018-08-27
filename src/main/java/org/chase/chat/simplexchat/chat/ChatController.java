@@ -11,7 +11,7 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
-@RestApiController("chat")
+@RestApiController("api/chat")
 public class ChatController {
     private final ChatService chatService;
     private final UserService userService;

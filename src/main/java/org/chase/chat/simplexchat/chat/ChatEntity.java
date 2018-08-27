@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ChatEntity {
+
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -31,17 +32,21 @@ public class ChatEntity {
     @OneToMany(mappedBy = "chat")
     private List<MessageEntity> messages;
 
-    public ChatEntity() {}
-
-    public void addUser(UserEntity user) {
+    /**
+     * Use ChatService.addUserToChat()
+     */
+    @Deprecated
+    public ChatUserBridgeEntity addUser(UserEntity user) {
         ChatUserBridgeEntity chatUserBridgeEntity = new ChatUserBridgeEntity();
         chatUserBridgeEntity.setChat(this);
         chatUserBridgeEntity.setUser(user);
         chatUserBridgeEntity.setChatId(this.getId());
-        chatUserBridgeEntity.setUserId(user.getId());
+        chatUserBridgeEntity.setUserId(user.getName());
 
         this.users.add(chatUserBridgeEntity);
         user.getChats().add(chatUserBridgeEntity);
+
+        return chatUserBridgeEntity;
     }
 
 }
