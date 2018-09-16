@@ -6,6 +6,7 @@ import org.chase.chat.simplexchat.user.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,9 +20,8 @@ public class ChatService {
         this.chatUserBridgeService = requireNonNull(chatUserBridgeService, "chatUserBridgeService");
     }
 
-    public ChatEntity getChatById(final String id) {
-
-        return chatRepository.findById(id).orElseThrow(() -> new NullPointerException("Chat with id "+id+" could not be found"));
+    public Optional<ChatEntity> getChatById(final String id) {
+        return chatRepository.findById(id);
     }
 
     public List<ChatEntity> getAllChats() {

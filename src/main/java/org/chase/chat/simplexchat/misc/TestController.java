@@ -42,7 +42,7 @@ public class TestController {
 
                 chatService.insertOrUpdate(chat);
 
-                chatService.addUserToChat(chat, testUser);
+                if (i < 30) chatService.addUserToChat(chat, testUser);
                 chatService.addUserToChat(chat, testUser2);
             }
 

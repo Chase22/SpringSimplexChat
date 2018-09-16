@@ -2,23 +2,21 @@ package org.chase.chat.simplexchat.chat;
 
 import org.apache.commons.collections4.IteratorUtils;
 import org.chase.chat.simplexchat.misc.RestApiController;
-import org.chase.chat.simplexchat.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
 @RestApiController("api/chat")
 public class ChatController {
     private final ChatService chatService;
-    private final UserService userService;
 
-    public ChatController(final ChatService chatService, UserService userService) {
+    public ChatController(final ChatService chatService) {
         this.chatService = requireNonNull(chatService, "chatService");
-        this.userService = requireNonNull(userService, "userService");
     }
 
     @GetMapping("test")
@@ -32,15 +30,20 @@ public class ChatController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ChatEntity> getChat(@PathVariable("id") final String id) {
-        return new ResponseEntity<>(chatService.getChatById(id), HttpStatus.OK);
+    public ResponseEntity getChat(@PathVariable("id") final String id) {
+        Optional<ChatEntity> chat = chatService.getChatById(id);
+        if (chat.isPresent()) {
+            return ResponseEntity.ok(chat.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("")
     @PutMapping("")
     public ResponseEntity<ChatEntity> insertOrUpdateChat(@RequestBody final ChatEntity chatEntity) {
         chatService.insertOrUpdate(chatEntity);
-        return new ResponseEntity<>(chatEntity, HttpStatus.OK);
+        return ResponseEntity.ok(chatEntity);
     }
 
     @DeleteMapping("/{id}")

@@ -19,7 +19,7 @@ public class ChatUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userService.getUserById(username);
+        UserEntity userEntity = userService.getUserById(username).orElseThrow(NullPointerException::new);
         return new ChatUserPrincipal(userEntity);
     }
 }

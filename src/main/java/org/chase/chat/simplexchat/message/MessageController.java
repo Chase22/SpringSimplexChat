@@ -23,7 +23,8 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public void sendMessage(@RequestBody MessageEntity entity) {
+    public void sendMessage(@RequestBody SendMessageRequestObject requestObject) {
+        MessageEntity entity = messageService.RequestObjectToEntity(requestObject);
         messageService.insertOrUpdateMessage(entity);
     }
 }

@@ -1,5 +1,6 @@
 package org.chase.chat.simplexchat.message;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.chase.chat.simplexchat.chat.ChatEntity;
 import org.chase.chat.simplexchat.user.UserEntity;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MessageEntity {
 
     @Id
@@ -20,7 +22,7 @@ public class MessageEntity {
 
     private String message;
 
-    private LocalDateTime timestamp;
+    private long timestamp;
 
     @ManyToOne
     private UserEntity user;

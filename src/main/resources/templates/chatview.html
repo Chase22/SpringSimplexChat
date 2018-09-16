@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="../static/css/chatview.css" th:href="@{/css/chatview.css}" rel="stylesheet" />
-</head>
-<body>
-    <b>Users:</b>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+                crossorigin="anonymous"></script>
+        <link href="../static/css/chatview.css" th:href="@{/css/chatview.css}" rel="stylesheet"/>
+
+        <script>
+            function submitData(e) {
+                var formadata = {};
+
+                $("#sendMessageForm").serializeArray().forEach(function (element) {
+                    console.log(element);
+                    formadata[element.name] = element.value;
+                });
+                console.log(formadata);
+                console.log(JSON.stringify(formadata));
+
+                $.ajax({
+                    url: "/api/message/send",
+                   contentType:'application/json',
+                   contents: formdata
+                });
+                alert("submit");
+                e.preventDefault();
+            }
+        </script>
+    </head>
+
+    <body>
+        <b>Users:</b>
         <th:block th:each="item : ${users}">
             <span class="userbox" th:text="${item.name}"></span>
         </th:block>
-    </ul>
-</body>
+        </ul>
+        <form action="/api/message/send" id="sendMessageForm" name="sendMessageForm" onsubmit="submitData()">
+            <input type="text" name="message">
+            <input type="hidden" id="timestamp" name="timestamp">
+            <input type="hidden" name="username" th:value="${userID}">
+            <input type="hidden" name="chatid" th:value="${chat.getId()}">
+            <input type="submit">
+        </form>
+    </body>
+
+<script>
+    document.getElementById("timestamp").value= new Date().getTime();
+</script>
 </html>

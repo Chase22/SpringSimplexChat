@@ -36,7 +36,7 @@ public class ChatEntity {
      * Use ChatService.addUserToChat()
      */
     @Deprecated
-    public ChatUserBridgeEntity addUser(UserEntity user) {
+    ChatUserBridgeEntity addUser(UserEntity user) {
         ChatUserBridgeEntity chatUserBridgeEntity = new ChatUserBridgeEntity();
         chatUserBridgeEntity.setChat(this);
         chatUserBridgeEntity.setUser(user);
@@ -44,7 +44,7 @@ public class ChatEntity {
         chatUserBridgeEntity.setUserId(user.getName());
 
         this.users.add(chatUserBridgeEntity);
-        user.getChats().add(chatUserBridgeEntity);
+        user.getChatBridges().add(chatUserBridgeEntity);
 
         return chatUserBridgeEntity;
     }

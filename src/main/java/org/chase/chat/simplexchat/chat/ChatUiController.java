@@ -2,12 +2,14 @@ package org.chase.chat.simplexchat.chat;
 
 import org.chase.chat.simplexchat.chatmembers.ChatUserBridgeEntity;
 import org.chase.chat.simplexchat.user.UserEntity;
+import org.chase.chat.simplexchat.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,22 +19,27 @@ import static java.util.Objects.requireNonNull;
 @RequestMapping("ui/chat")
 public class ChatUiController {
     private final ChatService chatService;
+    private final UserService userService;
 
-    public ChatUiController(ChatService chatService) {
+    public ChatUiController(ChatService chatService, UserService userService) {
         this.chatService = requireNonNull(chatService, "chatService");
+        this.userService = requireNonNull(userService, "userService");
     }
 
     @GetMapping("")
-    public String getChatList(final Model model) {
-        model.addAttribute("chats", chatService.getAllChats());
+    public String getChatList(final Model model, final Principal principal) {
+        UserEntity user = userService.getUserById(principal.getName()).orElseThrow(NullPointerException::new);
+        List<ChatEntity> chats = user.getChats();
+        model.addAttribute("chats", chats);
         return "chatlist";
     }
 
     @GetMapping("/{id}")
-    public String getChatUi(final Model model, @PathVariable("id") final String id) {
-        ChatEntity chat = chatService.getChatById(id);
+    public String getChatUi(@PathVariable("id") final String id, final Model model, final Principal principal) {
+        ChatEntity chat = chatService.getChatById(id).orElseThrow(NullPointerException::new);
         List<UserEntity> users = chat.getUsers().stream().map(ChatUserBridgeEntity::getUser).collect(Collectors.toList());
 
+        model.addAttribute("userID", principal.getName());
         model.addAttribute("chat", chat);
         model.addAttribute("users", users);
         return "chatview";

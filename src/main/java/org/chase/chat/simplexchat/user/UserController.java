@@ -28,25 +28,30 @@ public class UserController {
     public ResponseEntity<List<UserEntity>> getAllUsers(@PathVariable("id") final String id) {
         Iterable<UserEntity> users = userService.getAllUser();
 
-        return new ResponseEntity<>(IteratorUtils.toList(users.iterator()), HttpStatus.OK);
+        return ResponseEntity.ok(IteratorUtils.toList(users.iterator()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> getUser(@PathVariable("id") final String id) {
+    public ResponseEntity getUser(@PathVariable("id") final String id) {
+        Optional<UserEntity> user = userService.getUserById(id);
 
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("")
     public ResponseEntity<UserEntity> createUser(@RequestBody final UserEntity userEntity) {
         userService.insertOrUpdate(userEntity);
-        return new ResponseEntity<>(userEntity, HttpStatus.OK);
+        return ResponseEntity.ok(userEntity);
     }
 
     @PutMapping("")
-    public ResponseEntity<UserEntity> upadteChat(@RequestBody final UserEntity userEntity) {
+    public ResponseEntity<UserEntity> updateUser(@RequestBody final UserEntity userEntity) {
         userService.insertOrUpdate(userEntity);
-        return new ResponseEntity<>(userEntity, HttpStatus.OK);
+        return ResponseEntity.ok(userEntity);
     }
 
     @DeleteMapping("/{id}")

@@ -14,8 +14,8 @@ public class UserService {
         this.userRepository = requireNonNull(userRepository, "chatRepository");
     }
 
-    public UserEntity getUserById(final String id) {
-        return userRepository.findById(id).orElseThrow(NullPointerException::new);
+    public Optional<UserEntity> getUserById(final String id) {
+        return userRepository.findById(id);
     }
 
     public Iterable<UserEntity> getAllUser() {

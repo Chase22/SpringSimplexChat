@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -25,5 +26,13 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<ChatUserBridgeEntity> chats = new ArrayList<>();
+
+    public List<ChatEntity> getChats() {
+        return chats.stream().map(ChatUserBridgeEntity::getChat).collect(Collectors.toList());
+    }
+
+    public List<ChatUserBridgeEntity> getChatBridges() {
+        return chats;
+    }
 
 }
