@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE changelog>
+<changelog xmlns="http://www.changelog.org/changelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.changelog.org/changelog changelog.xsd">
+	<Version Version="1.0.0">
+		<description>first public release</description>
+	</Version>
+</changelog>
