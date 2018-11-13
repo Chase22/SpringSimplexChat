@@ -5,14 +5,12 @@ import lombok.Data;
 import org.chase.chat.simplexchat.chat.ChatEntity;
 import org.chase.chat.simplexchat.user.UserEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Table(name = "messages")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MessageEntity {
 

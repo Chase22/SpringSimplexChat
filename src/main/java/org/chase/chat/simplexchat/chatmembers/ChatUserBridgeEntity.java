@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table
+@Table(name = "chat_user_bridges")
 @IdClass(ChatUserBridgeId.class)
 public class ChatUserBridgeEntity {
 

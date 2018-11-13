@@ -4,7 +4,7 @@
         <createSequence sequenceName="hibernate_sequence"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-2">
-        <createTable tableName="chat_entity">
+        <createTable tableName="chats">
             <column name="chat_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -12,7 +12,7 @@
         </createTable>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-3">
-        <createTable tableName="chat_user_bridge_entity">
+        <createTable tableName="chat_user_bridges">
             <column name="bridge_chat_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -27,7 +27,7 @@
         </createTable>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-4">
-        <createTable tableName="message_entity">
+        <createTable tableName="messages">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
@@ -40,7 +40,7 @@
         </createTable>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-5">
-        <createTable tableName="user_entity">
+        <createTable tableName="users">
             <column name="user_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -48,27 +48,27 @@
         </createTable>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-6">
-        <addPrimaryKey columnNames="chat_id" constraintName="chat_entity_pkey" tableName="chat_entity"/>
+        <addPrimaryKey columnNames="chat_id" constraintName="chats_pkey" tableName="chats"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-7">
-        <addPrimaryKey columnNames="bridge_chat_id, bridge_chat_user_id, bridge_user_id" constraintName="chat_user_bridge_entity_pkey" tableName="chat_user_bridge_entity"/>
+        <addPrimaryKey columnNames="bridge_chat_id, bridge_chat_user_id, bridge_user_id" constraintName="chat_user_bridges_pkey" tableName="chat_user_bridges"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-8">
-        <addPrimaryKey columnNames="id" constraintName="message_entity_pkey" tableName="message_entity"/>
+        <addPrimaryKey columnNames="id" constraintName="messages_pkey" tableName="messages"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-9">
-        <addPrimaryKey columnNames="user_name" constraintName="user_entity_pkey" tableName="user_entity"/>
+        <addPrimaryKey columnNames="user_name" constraintName="users_pkey" tableName="users"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-10">
-        <addForeignKeyConstraint baseColumnNames="user_user_name" baseTableName="message_entity" constraintName="fk2ykfuob06xalmhoswyrebml8t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_name" referencedTableName="user_entity"/>
+        <addForeignKeyConstraint baseColumnNames="user_user_name" baseTableName="messages" constraintName="fk2ykfuob06xalmhoswyrebml8t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_name" referencedTableName="users"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-11">
-        <addForeignKeyConstraint baseColumnNames="chat_chat_id" baseTableName="message_entity" constraintName="fkafeyqeugl3s5tm4gaow7xnkq5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="chat_id" referencedTableName="chat_entity"/>
+        <addForeignKeyConstraint baseColumnNames="chat_chat_id" baseTableName="messages" constraintName="fkafeyqeugl3s5tm4gaow7xnkq5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="chat_id" referencedTableName="chats"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-12">
-        <addForeignKeyConstraint baseColumnNames="chat_chat_id" baseTableName="chat_user_bridge_entity" constraintName="fkb3b4p33kmu7egi0jf5lac2u5c" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="chat_id" referencedTableName="chat_entity"/>
+        <addForeignKeyConstraint baseColumnNames="chat_chat_id" baseTableName="chat_user_bridges" constraintName="fkb3b4p33kmu7egi0jf5lac2u5c" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="chat_id" referencedTableName="chats"/>
     </changeSet>
     <changeSet author="lukas (generated)" id="1542144480296-13">
-        <addForeignKeyConstraint baseColumnNames="user_user_name" baseTableName="chat_user_bridge_entity" constraintName="fkklpc066xjv6jsfl09xnqku19l" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_name" referencedTableName="user_entity"/>
+        <addForeignKeyConstraint baseColumnNames="user_user_name" baseTableName="chat_user_bridges" constraintName="fkklpc066xjv6jsfl09xnqku19l" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_name" referencedTableName="users"/>
     </changeSet>
 </databaseChangeLog>

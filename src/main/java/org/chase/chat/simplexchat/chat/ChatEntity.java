@@ -14,6 +14,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "chats")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ChatEntity {
 

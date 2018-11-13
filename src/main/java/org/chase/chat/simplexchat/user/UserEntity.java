@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Entity
+@Table(name = "users")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserEntity {
 
