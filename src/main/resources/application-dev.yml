@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/simplexchat
+    username: pguser
+    password: pguser
+  liquibase:
+    change-log: classpath:db.changelog/changelog-master.xml
+
+changelog:
+  path: /changelog/changelog.xml
