@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="lukas (generated)" id="1542144480296-1">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-2">
+        <createTable tableName="chat_entity">
+            <column name="chat_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chat_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-3">
+        <createTable tableName="chat_user_bridge_entity">
+            <column name="bridge_chat_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bridge_chat_user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bridge_user_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chat_chat_id" type="VARCHAR(255)"/>
+            <column name="user_user_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-4">
+        <createTable tableName="message_entity">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="VARCHAR(255)"/>
+            <column name="timestamp" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chat_chat_id" type="VARCHAR(255)"/>
+            <column name="user_user_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-5">
+        <createTable tableName="user_entity">
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_passwd" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-6">
+        <addPrimaryKey columnNames="chat_id" constraintName="chat_entity_pkey" tableName="chat_entity"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-7">
+        <addPrimaryKey columnNames="bridge_chat_id, bridge_chat_user_id, bridge_user_id" constraintName="chat_user_bridge_entity_pkey" tableName="chat_user_bridge_entity"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-8">
+        <addPrimaryKey columnNames="id" constraintName="message_entity_pkey" tableName="message_entity"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-9">
+        <addPrimaryKey columnNames="user_name" constraintName="user_entity_pkey" tableName="user_entity"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-10">
+        <addForeignKeyConstraint baseColumnNames="user_user_name" baseTableName="message_entity" constraintName="fk2ykfuob06xalmhoswyrebml8t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_name" referencedTableName="user_entity"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-11">
+        <addForeignKeyConstraint baseColumnNames="chat_chat_id" baseTableName="message_entity" constraintName="fkafeyqeugl3s5tm4gaow7xnkq5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="chat_id" referencedTableName="chat_entity"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-12">
+        <addForeignKeyConstraint baseColumnNames="chat_chat_id" baseTableName="chat_user_bridge_entity" constraintName="fkb3b4p33kmu7egi0jf5lac2u5c" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="chat_id" referencedTableName="chat_entity"/>
+    </changeSet>
+    <changeSet author="lukas (generated)" id="1542144480296-13">
+        <addForeignKeyConstraint baseColumnNames="user_user_name" baseTableName="chat_user_bridge_entity" constraintName="fkklpc066xjv6jsfl09xnqku19l" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_name" referencedTableName="user_entity"/>
+    </changeSet>
+</databaseChangeLog>
