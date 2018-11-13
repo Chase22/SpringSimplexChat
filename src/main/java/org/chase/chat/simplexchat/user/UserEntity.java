@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.chase.chat.simplexchat.chat.ChatEntity;
 import org.chase.chat.simplexchat.chatmembers.ChatUserBridgeEntity;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
