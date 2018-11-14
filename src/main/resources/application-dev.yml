@@ -10,3 +10,6 @@ spring:
 
 changelog:
   path: /changelog/changelog.xml
+
+server:
+  port: 8080

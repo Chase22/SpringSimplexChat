@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateMessages();
 
+    const messageBox = document.getElementById("messageBox");
+    messageBox.scrollTop = messageBox.scrollHeight;
+
     document.getElementById('sendMessageForm').addEventListener("submit", (e) => {
         e.preventDefault();
         const formdata = {};
@@ -25,6 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(formdata),
             headers: {'Content-Type': 'application/json'}
         }).then(() => updateMessages);
+    });
+
+    document.getElementById("message").addEventListener('keypress', (e) => {
+        if(e.which == 13 && !e.shiftKey) {
+            $(this).closest("form").submit();
+            e.preventDefault();
+            return false;
+        }
     });
 
     setInterval(updateMessages, 1000);
