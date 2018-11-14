@@ -1,8 +1,10 @@
 spring:
   liquibase:
     change-log: classpath:db.changelog/changelog-master.xml
-  security:
 
 
 changelog:
   path: /changelog/changelog.xml
+
+server:
+  port: ${PORT}
