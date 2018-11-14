@@ -16,7 +16,7 @@ public class MessageEntity {
 
     @Id
     @GeneratedValue
-    private Long Id;
+    private Long id;
 
     private String message;
 
@@ -27,4 +27,8 @@ public class MessageEntity {
 
     @ManyToOne
     private ChatEntity chat;
+
+    public MessageRVO toRVO() {
+        return new MessageRVO(id, message, timestamp, user.getName(), chat.getId());
+    }
 }

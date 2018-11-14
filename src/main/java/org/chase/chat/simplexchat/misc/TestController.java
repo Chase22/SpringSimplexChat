@@ -29,22 +29,17 @@ public class TestController {
             UserEntity testUser = new UserEntity();
             testUser.setName("user");
             testUser.setPassword(ApplicationSecurity.getPasswordEncoder().encode("password"));
-            userService.insertOrUpdate(testUser);
+            userService.save(testUser);
 
             UserEntity testUser2 = new UserEntity();
             testUser2.setName("Name2");
             testUser2.setPassword("secret");
-            userService.insertOrUpdate(testUser2);
+            userService.save(testUser2);
 
-            for (int i = 0; i < 50; i++) {
-                ChatEntity chat = new ChatEntity();
-                chat.setName("Test Chat " + i);
-
-                chatService.insertOrUpdate(chat);
-
-                if (i < 30) chatService.addUserToChat(chat, testUser);
-                chatService.addUserToChat(chat, testUser2);
-            }
+            ChatEntity chatEntity = new ChatEntity();
+            chatEntity.setId("fixedChat");
+            chatEntity.setName("THE Chat");
+            chatService.save(chatEntity);
 
         } catch (Exception e) {
             e.printStackTrace();

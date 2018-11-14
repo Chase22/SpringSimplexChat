@@ -44,13 +44,13 @@ public class UserController {
 
     @PostMapping("")
     public ResponseEntity<UserEntity> createUser(@RequestBody final UserEntity userEntity) {
-        userService.insertOrUpdate(userEntity);
+        userService.save(userEntity);
         return ResponseEntity.ok(userEntity);
     }
 
     @PutMapping("")
     public ResponseEntity<UserEntity> updateUser(@RequestBody final UserEntity userEntity) {
-        userService.insertOrUpdate(userEntity);
+        userService.save(userEntity);
         return ResponseEntity.ok(userEntity);
     }
 

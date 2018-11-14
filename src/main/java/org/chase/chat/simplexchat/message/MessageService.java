@@ -1,6 +1,7 @@
 package org.chase.chat.simplexchat.message;
 
 import org.chase.chat.simplexchat.chat.ChatService;
+import org.chase.chat.simplexchat.user.UserEntity;
 import org.chase.chat.simplexchat.user.UserService;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,12 @@ public class MessageService {
         entity.setChat(chatService.getChatById(requestObject.getChatid()).orElseThrow(NullPointerException::new));
         entity.setMessage(requestObject.getMessage());
         entity.setTimestamp(requestObject.getTimestamp());
-        entity.setUser(userService.getUserById(requestObject.getUsername()).orElseThrow(NullPointerException::new));
+        entity.setUser(userService.getUserById(requestObject.getUsername().toLowerCase()).orElseGet(() -> {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setName(requestObject.getUsername().toLowerCase());
+            userService.save(userEntity);
+            return userEntity;
+        }));
         return entity;
     }
 }

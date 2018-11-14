@@ -35,13 +35,14 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity security) throws Exception {
-        security.authorizeRequests()
-               .antMatchers("/ressources/**", "/signup").permitAll()
-               .anyRequest().authenticated()
-               .and()
-               .formLogin().loginPage("/login").permitAll()
-               .failureUrl("/login-error")
-               .and().logout().logoutSuccessUrl("/index.html");
+//        security.authorizeRequests()
+//               .antMatchers("/ressources/**", "/signup", "/ui/chat", "/message/*").permitAll()
+//               .anyRequest().authenticated()
+//               .and()
+//               .formLogin().loginPage("/login").permitAll()
+//               .failureUrl("/login-error")
+//               .and().logout().logoutSuccessUrl("/index.html");
+        security.authorizeRequests().anyRequest().permitAll();
         security.csrf().disable();
         security.headers().frameOptions().disable();
     }

@@ -5,6 +5,8 @@ spring:
     password: pguser
   liquibase:
     change-log: classpath:db.changelog/changelog-master.xml
+  thymeleaf:
+    cache: false
 
 changelog:
   path: /changelog/changelog.xml

@@ -1,6 +1,9 @@
 package org.chase.chat.simplexchat.chat;
 
+import antlr.debug.MessageEvent;
 import org.apache.commons.collections4.IteratorUtils;
+import org.chase.chat.simplexchat.message.MessageEntity;
+import org.chase.chat.simplexchat.message.MessageRVO;
 import org.chase.chat.simplexchat.misc.RestApiController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -39,10 +43,19 @@ public class ChatController {
         }
     }
 
+    @GetMapping("/{id}/message")
+    public List<MessageRVO> getMessages(@PathVariable("id") String id) {
+        return chatService.getChatById(id).map(ChatEntity::getMessages)
+                .orElseThrow(ChatNotFoundException::new)
+                .stream()
+                .map(MessageEntity::toRVO)
+                .collect(Collectors.toList());
+    }
+
     @PostMapping("")
     @PutMapping("")
     public ResponseEntity<ChatEntity> insertOrUpdateChat(@RequestBody final ChatEntity chatEntity) {
-        chatService.insertOrUpdate(chatEntity);
+        chatService.save(chatEntity);
         return ResponseEntity.ok(chatEntity);
     }
 

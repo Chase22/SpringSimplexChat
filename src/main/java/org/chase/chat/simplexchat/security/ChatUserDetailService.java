@@ -7,14 +7,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import static java.util.Objects.requireNonNull;
+import java.util.Objects;
 
 @Service
 public class ChatUserDetailService implements UserDetailsService {
     private UserService userService;
 
     public ChatUserDetailService(UserService userService) {
-        this.userService = requireNonNull(userService, "userService");
+        this.userService = Objects.requireNonNull(userService, "userService");
     }
 
     @Override

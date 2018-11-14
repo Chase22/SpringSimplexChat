@@ -22,7 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void insertOrUpdate(final UserEntity userEntity) {
+    public void save(final UserEntity userEntity) {
         userRepository.save(userEntity);
     }
 

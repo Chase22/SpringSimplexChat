@@ -22,11 +22,11 @@ public class ChatUiController {
     private final UserService userService;
 
     public ChatUiController(ChatService chatService, UserService userService) {
-        this.chatService = requireNonNull(chatService, "chatService");
-        this.userService = requireNonNull(userService, "userService");
+        this.chatService = chatService;
+        this.userService = userService;
     }
 
-    @GetMapping("")
+    @GetMapping("/list")
     public String getChatList(final Model model, final Principal principal) {
         UserEntity user = userService.getUserById(principal.getName()).orElseThrow(NullPointerException::new);
         List<ChatEntity> chats = user.getChats();
@@ -42,6 +42,15 @@ public class ChatUiController {
         model.addAttribute("userID", principal.getName());
         model.addAttribute("chat", chat);
         model.addAttribute("users", users);
+        return "chatview";
+    }
+
+    @GetMapping
+    public String getChatUi(final Model model) {
+        ChatEntity chat = chatService.getAllChats().get(0);
+
+        model.addAttribute("chat", chat);
+
         return "chatview";
     }
 }

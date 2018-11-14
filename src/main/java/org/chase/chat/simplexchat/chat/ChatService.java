@@ -28,7 +28,7 @@ public class ChatService {
         return IteratorUtils.toList(chatRepository.findAll().iterator());
     }
 
-    public void insertOrUpdate(final ChatEntity chatEntity) {
+    public void save(final ChatEntity chatEntity) {
         chatRepository.save(chatEntity);
     }
 
