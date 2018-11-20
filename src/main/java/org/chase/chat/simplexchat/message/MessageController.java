@@ -1,13 +1,10 @@
 package org.chase.chat.simplexchat.message;
 
-import org.chase.chat.simplexchat.chat.ChatService;
 import org.chase.chat.simplexchat.misc.RestApiController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;

@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(() => updateMessages);
     });
 
-    setInterval(updateMessages, 1000);
+    setInterval(updateMessages, 10000);
 });
 
 const createChatMessage = (value) => {
