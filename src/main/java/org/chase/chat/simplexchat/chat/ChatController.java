@@ -1,6 +1,5 @@
 package org.chase.chat.simplexchat.chat;
 
-import antlr.debug.MessageEvent;
 import org.apache.commons.collections4.IteratorUtils;
 import org.chase.chat.simplexchat.message.MessageEntity;
 import org.chase.chat.simplexchat.message.MessageRVO;
@@ -44,10 +43,13 @@ public class ChatController {
     }
 
     @GetMapping("/{id}/message")
-    public List<MessageRVO> getMessages(@PathVariable("id") String id) {
+    public List<MessageRVO> getMessages(@PathVariable("id") String id, @RequestParam(value = "offset", required = false) Integer offset) {
+        final int messageOffset = offset != null ? offset : -1;
+
         return chatService.getChatById(id).map(ChatEntity::getMessages)
                 .orElseThrow(ChatNotFoundException::new)
                 .stream()
+                .filter(messageEntity -> messageEntity.getId() > messageOffset)
                 .map(MessageEntity::toRVO)
                 .collect(Collectors.toList());
     }

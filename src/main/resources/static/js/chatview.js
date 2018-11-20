@@ -1,3 +1,4 @@
+let lastId = -1;
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Content Loaded");
@@ -48,12 +49,13 @@ const updateMessages = () => {
     const chatId = document.getElementById("chatid").value;
     const chatBox = document.getElementById("messageBox");
 
-    fetch(`/api/chat/${chatId}/message`)
+    fetch(`/api/chat/${chatId}/message?offset=${lastId}`)
         .then((response) => response.json())
         .then(data => {
             data.forEach(value => {
                 if (!document.getElementById(value["id"])) {
                     chatBox.appendChild(createChatMessage(value))
+                    lastId = Math.max(lastId, value["id"])
                 }
             })
         });
