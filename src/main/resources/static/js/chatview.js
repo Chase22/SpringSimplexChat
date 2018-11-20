@@ -65,4 +65,7 @@ const updateMessages = () => {
                 }
             })
         });
+
+    const messageBox = document.getElementById("messageBox");
+    messageBox.scrollTop = messageBox.scrollHeight;
 };
