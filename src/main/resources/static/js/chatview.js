@@ -30,14 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(() => updateMessages);
     });
 
-    document.getElementById("message").addEventListener('keypress', (e) => {
-        if(e.which == 13 && !e.shiftKey) {
-            $(this).closest("form").submit();
-            e.preventDefault();
-            return false;
-        }
-    });
-
     setInterval(updateMessages, 1000);
 });
 
