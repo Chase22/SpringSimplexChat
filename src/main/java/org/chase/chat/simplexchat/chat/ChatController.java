@@ -49,7 +49,7 @@ public class ChatController {
         return chatService.getChatById(id).map(ChatEntity::getMessages)
                 .orElseThrow(ChatNotFoundException::new)
                 .stream()
-                .filter(messageEntity -> messageEntity.getId() > messageOffset)
+                .filter(messageEntity -> messageEntity.getId() < messageOffset)
                 .map(MessageEntity::toRVO)
                 .collect(Collectors.toList());
     }
