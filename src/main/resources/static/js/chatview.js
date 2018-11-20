@@ -54,12 +54,19 @@ const updateMessages = () => {
         .then(data => {
             data.forEach(value => {
                 if (!document.getElementById(value["id"])) {
-                    chatBox.appendChild(createChatMessage(value))
-                    lastId = Math.max(lastId, value["id"])
+                    const chatElemen = createChatMessage(value);
+                    chatBox.appendChild(chatElemen);
+                    lastId = Math.max(lastId, value["id"]);
                 }
             })
         });
 
-    const messageBox = document.getElementById("messageBox");
-    messageBox.scrollTop = messageBox.scrollHeight;
+    const node = Array.from(chatBox.childNodes)[chatBox.childNodes.length-1];
+
+    console.log(node);
+
+    if(node != null && node.nodeType === Node.ELEMENT_NODE) {
+        node.scrollIntoView();
+    }
+
 };
