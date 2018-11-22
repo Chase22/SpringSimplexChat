@@ -24,6 +24,9 @@ public class UserEntity {
     @Column(name = "user_passwd")
     private String password;
 
+    @Column(name = "user_telegram_id")
+    private Long telegramId;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<ChatUserBridgeEntity> chats = new ArrayList<>();
 
