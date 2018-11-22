@@ -25,7 +25,6 @@ public class MessageController {
 
     @PostMapping(value = "/send", consumes = APPLICATION_JSON_VALUE)
     public void sendMessage(@RequestBody SendMessageRequestObject requestObject) {
-        MessageEntity entity = messageService.RequestObjectToEntity(requestObject);
-        messageService.insertOrUpdateMessage(entity);
+        messageService.insertOrUpdateMessage(messageService.RequestObjectToEntity(requestObject));
     }
 }

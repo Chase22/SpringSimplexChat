@@ -26,7 +26,7 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public void deleteChatById(String id) {
+    public void deleteUserById(String id) {
         userRepository.deleteById(id);
     }
 }
