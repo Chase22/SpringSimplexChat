@@ -18,6 +18,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Optional<UserEntity> getUserByTelegramId(final long telegramId) {
+        return userRepository.findByTelegramId(telegramId);
+    }
+
     public Iterable<UserEntity> getAllUser() {
         return userRepository.findAll();
     }
