@@ -8,6 +8,7 @@ import org.chase.chat.simplexchat.user.UserService;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import static java.lang.String.format;
 import static org.chase.chat.simplexchat.user.UsernameConverter.convertUsername;
 import static org.springframework.util.StringUtils.isEmpty;
 
@@ -48,6 +49,11 @@ public class TelegramChatController {
         if (isEmpty(argument)) {
             return new SendMessage(message.getChatId(), "No username provided");
         }
+
+        userService.getUserByTelegramId(message.getFrom().getId()).ifPresent(userEntity -> {
+            userEntity.setTelegramId(null);
+            userService.save(userEntity);
+        });
 
         return userService.getUserById(convertUsername(argument))
                 .map(userEntity -> {
