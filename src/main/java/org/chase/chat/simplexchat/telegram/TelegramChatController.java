@@ -68,4 +68,12 @@ public class TelegramChatController {
                 .orElse(new SendMessage(message.getChatId(), "Username not found. Please send a message with it in the web UI"));
     }
 
+    @TelegramCommand(commands = "/getUsername")
+    public SendMessage getUsername(Integer userId, Long chatId) {
+        return userService.getUserByTelegramId(userId).map(
+                userEntity -> new SendMessage()
+                        .setText(format("Registered Username: %s", userEntity.getName()))
+                        .setChatId(chatId)
+        ).orElse(new SendMessage().setText("No Username set").setChatId(chatId));
+    }
 }
