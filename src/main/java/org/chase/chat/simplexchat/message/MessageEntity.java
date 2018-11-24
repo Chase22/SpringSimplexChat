@@ -29,6 +29,10 @@ public class MessageEntity {
     private ChatEntity chat;
 
     public MessageRVO toRVO() {
-        return new MessageRVO(id, message, timestamp, user.getName(), chat.getId());
+        if (user == null || chat == null) {
+            return null;
+        } else {
+            return new MessageRVO(id, message, timestamp, user.getName(), chat.getId());
+        }
     }
 }

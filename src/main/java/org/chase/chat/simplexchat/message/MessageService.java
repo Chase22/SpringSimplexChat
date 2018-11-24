@@ -25,7 +25,7 @@ public class MessageService {
         return messageRepository.findById(id).orElseThrow(NullPointerException::new);
     }
 
-    public void insertOrUpdateMessage(MessageEntity entity) {
+    public void save(MessageEntity entity) {
         messageRepository.save(entity);
     }
 

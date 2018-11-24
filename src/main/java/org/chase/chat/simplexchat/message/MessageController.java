@@ -30,6 +30,6 @@ public class MessageController {
     public void sendMessage(@RequestBody SendMessageRequestObject requestObject) {
         final MessageEntity entity = messageService.RequestObjectToEntity(requestObject);
         asyncMessageSender.sendMessages(entity);
-        messageService.insertOrUpdateMessage(entity);
+        messageService.save(entity);
     }
 }
