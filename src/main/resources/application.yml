@@ -1,7 +1,7 @@
 spring:
   liquibase:
     change-log: classpath:db.changelog/changelog-master.xml
-
+  jpa.properties.hibernate.jdbc.lob.non_contextual_creation: true
 
 changelog:
   path: /changelog/changelog.xml
