@@ -35,7 +35,7 @@ public class TelegramChatController {
             MessageEntity messageEntity = new MessageEntity();
             messageEntity.setChat(chatService.getAllChats().get(0));
             messageEntity.setMessage(message.getText());
-            messageEntity.setTimestamp(message.getDate()*1000);
+            messageEntity.setTimestamp(message.getDate()*1000L);
             messageEntity.setUser(userEntity);
 
             messageService.save(messageEntity);
