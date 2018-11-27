@@ -14,11 +14,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class MessageController {
 
     private final MessageService messageService;
-    private final TelegramAsyncMessageSender asyncMessageSender;
 
-    public MessageController(final MessageService messageService, final TelegramAsyncMessageSender asyncMessageSender) {
+    public MessageController(final MessageService messageService) {
         this.messageService = messageService;
-        this.asyncMessageSender = asyncMessageSender;
     }
 
     @GetMapping("/{id}")
@@ -29,7 +27,6 @@ public class MessageController {
     @PostMapping(value = "/send", consumes = APPLICATION_JSON_VALUE)
     public void sendMessage(@RequestBody SendMessageRequestObject requestObject) {
         final MessageEntity entity = messageService.RequestObjectToEntity(requestObject);
-        asyncMessageSender.sendMessages(entity);
-        messageService.save(entity);
+        messageService.sendMessage(entity);
     }
 }

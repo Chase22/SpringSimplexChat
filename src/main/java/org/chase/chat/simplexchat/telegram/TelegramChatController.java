@@ -38,7 +38,7 @@ public class TelegramChatController {
             messageEntity.setTimestamp(message.getDate()*1000L);
             messageEntity.setUser(userEntity);
 
-            messageService.save(messageEntity);
+            messageService.sendMessage(messageEntity);
 
           return new SendMessage(message.getChatId(), "Message send");
         }).orElse(new SendMessage(message.getChatId(), "No Username set. Please set a Username by using /setUsername"));
