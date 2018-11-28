@@ -26,11 +26,16 @@ body {
     width: 100%;
     height: 100%;
     border: 1px solid lightslategray;
-    max-height: 50%;
+    max-height: 100%;
 }
 
 .chat-message-timestamp {
     color: dodgerblue;
+}
+
+.date-message {
+    text-align: center;
+    background-color: lightblue;
 }
 
 #username {
@@ -48,7 +53,7 @@ body {
 
 #submit {
     border-radius: 0;
-    height: 80px;
+    height: 50px;
     width: 150px;
     font-size: 20px;
     border: 0;

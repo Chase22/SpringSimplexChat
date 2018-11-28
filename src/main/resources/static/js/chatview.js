@@ -1,4 +1,5 @@
 let lastId = -1;
+let lastDate = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Content Loaded");
@@ -39,7 +40,7 @@ const createChatMessage = (value) => {
 
     return document.createRange().createContextualFragment(
         `<div class="chat-message" id="${value["id"]}">
-            <span class="chat-message-timestamp">${time.toLocaleString()}</span> - 
+            <span class="chat-message-timestamp">${time.toLocaleTimeString()}</span> - 
             <span class="chat-message-user">${value["userId"]}</span>: 
             <span class="chat-message-message">${value["message"]}</span>
         </div>`);
@@ -54,6 +55,17 @@ const updateMessages = () => {
         .then(data => {
             data.forEach(value => {
                 if (!document.getElementById(value["id"])) {
+                    let date = new Date(value["timestamp"]);
+
+                    if (lastDate == null || !isSameDay(date, lastDate)) {
+                        const elem = document.createElement("div");
+                        elem.classList.add("date-message");
+                        elem.id = date.getTime().toString();
+                        elem.innerText = date.toLocaleDateString();
+                        chatBox.appendChild(elem);
+
+                        lastDate = date;
+                    }
                     const chatElemen = createChatMessage(value);
                     chatBox.appendChild(chatElemen);
                     lastId = Math.max(lastId, value["id"]);
@@ -69,4 +81,13 @@ const updateMessages = () => {
         node.scrollIntoView();
     }
 
+};
+
+const isSameDay = (date1, date2) => {
+    return withoutTime(date1).getTime() === withoutTime(date2).getTime();
+};
+
+const withoutTime = (date) => {
+    date.setHours(0,0,0,0);
+    return date;
 };
