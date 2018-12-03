@@ -16,6 +16,7 @@ import java.util.EnumSet;
 @Slf4j
 public class MessageFormatter {
     public String format(final String message) {
+        log.info("Formatting message: {}", message);
         if (StringUtils.isEmpty(message)) {
             log.warn("Empty message!");
             return message;
