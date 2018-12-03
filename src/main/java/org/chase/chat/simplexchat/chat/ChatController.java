@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,21 +36,20 @@ public class ChatController {
     @GetMapping("/{id}")
     public ResponseEntity getChat(@PathVariable("id") final String id) {
         Optional<ChatEntity> chat = chatService.getChatById(id);
-        if (chat.isPresent()) {
-            return ResponseEntity.ok(chat.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return chat.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/message")
-    public List<MessageRVO> getMessages(@PathVariable("id") String id, @RequestParam(value = "offset", required = false) Integer offset) {
-        final int messageOffset = offset != null ? offset : -1;
+    public List<MessageRVO> getMessages(@PathVariable("id") String id,
+                                        @RequestParam(value = "offset", defaultValue = "-1") Integer offset,
+                                        @RequestParam(value = "limit", defaultValue = "100") Integer limit) {
 
         return chatService.getChatById(id).map(ChatEntity::getMessages)
                 .orElseThrow(ChatNotFoundException::new)
                 .stream()
-                .filter(messageEntity -> messageEntity.getId() > messageOffset)
+                .filter(messageEntity -> messageEntity.getId() > offset)
+                .sorted(Comparator.comparingLong(MessageEntity::getTimestamp))
+                .limit(limit)
                 .map(MessageEntity::toRVO)
                 .collect(Collectors.toList());
     }

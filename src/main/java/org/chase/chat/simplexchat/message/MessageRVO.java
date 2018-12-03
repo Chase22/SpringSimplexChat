@@ -31,4 +31,8 @@ public class MessageRVO {
     @JsonProperty("chatId")
     private String chat;
 
+    public Message toMessage() {
+        return Message.builder().chatid(chat).message(message).timestamp(timestamp).username(user).build();
+    }
+
 }

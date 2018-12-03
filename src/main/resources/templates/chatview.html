@@ -18,7 +18,7 @@
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required><br>
                 <label for="message">Message:</label><br>
-                <textarea class="messageField" id="message" name="message" required></textarea>
+                <textarea class="messageField" id="message" name="message" maxlength="1000" required></textarea>
                 <input type="hidden" id="chatid" name="chatid" th:value="${chat.getId()}"><br>
                 <input type="submit" id="submit" value="Send">
             </form>

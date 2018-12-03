@@ -6,6 +6,7 @@ import name.maratik.spring.telegram.annotation.TelegramCommand;
 import name.maratik.spring.telegram.annotation.TelegramMessage;
 import org.chase.chat.simplexchat.chat.ChatService;
 import org.chase.chat.simplexchat.message.MessageEntity;
+import org.chase.chat.simplexchat.message.MessageRouter;
 import org.chase.chat.simplexchat.message.MessageService;
 import org.chase.chat.simplexchat.user.UserService;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -20,13 +21,13 @@ import static org.springframework.util.StringUtils.isEmpty;
 public class TelegramChatController {
 
     private final UserService userService;
-    private final MessageService messageService;
     private final ChatService chatService;
+    private final MessageRouter messageRouter;
 
-    public TelegramChatController(final UserService userService, final MessageService messageService, final ChatService chatService) {
+    public TelegramChatController(final UserService userService, final ChatService chatService, final MessageRouter messageRouter) {
         this.userService = userService;
-        this.messageService = messageService;
         this.chatService = chatService;
+        this.messageRouter = messageRouter;
     }
 
     @TelegramMessage
@@ -38,7 +39,7 @@ public class TelegramChatController {
             messageEntity.setTimestamp(message.getDate()*1000L);
             messageEntity.setUser(userEntity);
 
-            messageService.sendMessage(messageEntity);
+            messageRouter.sendMessage(new org.chase.chat.simplexchat.message.Message(messageEntity));
 
           return new SendMessage(message.getChatId(), "Message send");
         }).orElse(new SendMessage(message.getChatId(), "No Username set. Please set a Username by using /setUsername"));
