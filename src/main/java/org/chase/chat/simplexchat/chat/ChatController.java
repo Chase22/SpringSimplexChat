@@ -2,6 +2,7 @@ package org.chase.chat.simplexchat.chat;
 
 import org.apache.commons.collections4.IteratorUtils;
 import org.chase.chat.simplexchat.message.MessageEntity;
+import org.chase.chat.simplexchat.message.MessageFormatter;
 import org.chase.chat.simplexchat.message.MessageRVO;
 import org.chase.chat.simplexchat.misc.RestApiController;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,11 @@ import static java.util.Objects.requireNonNull;
 @RestApiController("api/chat")
 public class ChatController {
     private final ChatService chatService;
+    private final MessageFormatter messageFormatter;
 
-    public ChatController(final ChatService chatService) {
-        this.chatService = requireNonNull(chatService, "chatService");
+    public ChatController(final ChatService chatService, final MessageFormatter messageFormatter) {
+        this.chatService = chatService;
+        this.messageFormatter = messageFormatter;
     }
 
     @GetMapping("test")
@@ -50,6 +53,7 @@ public class ChatController {
                 .filter(messageEntity -> messageEntity.getId() > offset)
                 .sorted(Comparator.comparingLong(MessageEntity::getTimestamp))
                 .limit(limit)
+                .peek(messageEntity -> messageEntity.setMessage(messageFormatter.format(messageEntity.getMessage())))
                 .map(MessageEntity::toRVO)
                 .collect(Collectors.toList());
     }
