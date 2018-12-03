@@ -20,7 +20,7 @@ public class MessageFormatter {
             log.warn("Empty message!");
             return message;
         }
-        String input = HtmlUtils.htmlEscape(message.trim());
+        String input = message.trim();
         LinkExtractor linkExtractor = LinkExtractor.builder()
                 .linkTypes(EnumSet.of(LinkType.URL)) // limit to URLs
                 .build();
