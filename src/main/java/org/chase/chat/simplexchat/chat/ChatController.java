@@ -9,12 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
+import java.util.*;
+import java.util.stream.Collector;
 
 @RestApiController("api/chat")
 public class ChatController {
@@ -52,10 +48,9 @@ public class ChatController {
                 .stream()
                 .filter(messageEntity -> messageEntity.getId() > offset)
                 .sorted(Comparator.comparingLong(MessageEntity::getTimestamp))
-                .limit(limit)
                 .peek(messageEntity -> messageEntity.setMessage(messageFormatter.format(messageEntity.getMessage())))
                 .map(MessageEntity::toRVO)
-                .collect(Collectors.toList());
+                .collect(lastN(limit));
     }
 
     @PostMapping("")
@@ -68,6 +63,19 @@ public class ChatController {
     @DeleteMapping("/{id}")
     public void deleteChat(@PathVariable("id") final String id) {
         chatService.deleteChatById(id);
+    }
+
+    public static <T> Collector<T, ?, List<T>> lastN(int n) {
+        return Collector.<T, Deque<T>, List<T>>of(ArrayDeque::new, (acc, t) -> {
+            if(acc.size() == n)
+                acc.pollFirst();
+            acc.add(t);
+        }, (acc1, acc2) -> {
+            while(acc2.size() < n && !acc1.isEmpty()) {
+                acc2.addFirst(acc1.pollLast());
+            }
+            return acc2;
+        }, ArrayList::new);
     }
 
 }
