@@ -32,6 +32,10 @@ public class TelegramChatController {
 
     @TelegramMessage
     public SendMessage defaultAction(Message message) {
+        if (message.getText().length() > 1000) {
+            return new SendMessage(message.getChatId(), "Messages may be at max 1000 characters long");
+        }
+
         return userService.getUserByTelegramId(message.getFrom().getId()).map(userEntity -> {
             MessageEntity messageEntity = new MessageEntity();
             messageEntity.setChat(chatService.getAllChats().get(0));

@@ -35,19 +35,6 @@ public class TelegramAsyncMessageSender implements MessageHandler {
 
     @Override
     public void accept(final Message message) {
-        if (message.getMessage().length() > 1000) {
-            Optional<UserEntity> chatEntity = userService.getUserById(message.getUsername());
-
-            if (chatEntity.isPresent()) {
-                try {
-                    bot.execute(new SendMessage(chatEntity.get().getTelegramId(), "Messages may be at max 1000 characters long"));
-                } catch (TelegramApiException e) {
-                    log.error("Could not send message", e);
-                }
-            } else {
-                log.error("Couldn't find TelegramId for user {}", message.getUsername());
-            }
-        }
         StreamSupport.stream(userService.getAllUser().spliterator(), false)
                 .filter(userEntity -> userEntity.getTelegramId() != null)
                 .filter(userEntity -> !userEntity.getName().equals(message.getUsername())).parallel()
