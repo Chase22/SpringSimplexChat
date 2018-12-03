@@ -7,6 +7,7 @@ import org.nibor.autolink.LinkType;
 import org.nibor.autolink.Span;
 import org.owasp.encoder.Encode;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.EnumSet;
@@ -15,7 +16,10 @@ import java.util.EnumSet;
 @Slf4j
 public class MessageFormatter {
     public String format(final String message) {
-
+        if (StringUtils.isEmpty(message)) {
+            log.warn("Empty message!");
+            return message;
+        }
         String input = HtmlUtils.htmlEscape(message.trim());
         LinkExtractor linkExtractor = LinkExtractor.builder()
                 .linkTypes(EnumSet.of(LinkType.URL)) // limit to URLs
