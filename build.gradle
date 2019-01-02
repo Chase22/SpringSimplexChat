@@ -19,8 +19,8 @@ apply plugin: 'io.spring.dependency-management'
 
 apply from: 'liquibase.gradle'
 
-group = 'org.chase.chat'
-version = '0.0.1-SNAPSHOT'
+group = 'io.github.Chase22'
+version = '1.0.0'
 sourceCompatibility = 1.8
 
 repositories {
