@@ -1,0 +1,17 @@
+{
+  "name": "simplexchat",
+  "version": "1.0.0",
+  "description": "a chat",
+  "main": "src/chatview.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir ../resources/static/js",
+    "babel": "./node_modules/.bin/babel"
+  },
+  "author": "chase",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2"
+  }
+}
