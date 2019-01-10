@@ -1,8 +1,7 @@
 package io.github.Chase22.simplexchat.chat;
 
-import io.github.Chase22.simplexchat.user.UserEntity;
-import org.apache.commons.collections4.IteratorUtils;
 import io.github.Chase22.simplexchat.chatmembers.ChatUserBridgeService;
+import io.github.Chase22.simplexchat.user.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class ChatService {
     }
 
     public List<ChatEntity> getAllChats() {
-        return IteratorUtils.toList(chatRepository.findAll().iterator());
+        return chatRepository.findAll();
     }
 
     public void save(final ChatEntity chatEntity) {

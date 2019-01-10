@@ -1,10 +1,9 @@
 package io.github.Chase22.simplexchat.chat;
 
-import io.github.Chase22.simplexchat.message.MessageRVO;
-import io.github.Chase22.simplexchat.misc.RestApiController;
-import org.apache.commons.collections4.IteratorUtils;
 import io.github.Chase22.simplexchat.message.MessageEntity;
 import io.github.Chase22.simplexchat.message.MessageFormatter;
+import io.github.Chase22.simplexchat.message.MessageRVO;
+import io.github.Chase22.simplexchat.misc.RestApiController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,7 @@ public class ChatController {
 
     @GetMapping("")
     public ResponseEntity<List<ChatEntity>> getAllChats() {
-        return new ResponseEntity<>(IteratorUtils.toList(chatService.getAllChats().iterator()), HttpStatus.OK);
+        return new ResponseEntity<>(chatService.getAllChats(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

@@ -2,6 +2,7 @@ package io.github.Chase22.simplexchat.user;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
@@ -22,7 +23,7 @@ public class UserService {
         return userRepository.findByTelegramId(telegramId);
     }
 
-    public Iterable<UserEntity> getAllUser() {
+    public List<UserEntity> getAllUser() {
         return userRepository.findAll();
     }
 
