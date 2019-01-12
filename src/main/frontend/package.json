@@ -2,16 +2,23 @@
   "name": "simplexchat",
   "version": "1.0.0",
   "description": "a chat",
-  "main": "src/chatview.js",
+  "main": "../resources/static/js/chatview.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src --out-dir ../resources/static/js",
-    "babel": "./node_modules/.bin/babel"
+    "watch": "babel src -w --out-dir ../resources/static/js",
+    "babel": "./node_modules/.bin/babel --presets es2015",
+    "webpack": "webpack"
   },
   "author": "chase",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2"
+    "@babel/core": "^7.2.2",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1",
+    "moment": "^2.23.0"
   }
 }

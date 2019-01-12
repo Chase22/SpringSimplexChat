@@ -1,6 +1,5 @@
 package io.github.Chase22.simplexchat.user;
 
-import org.apache.commons.collections4.IteratorUtils;
 import io.github.Chase22.simplexchat.misc.RestApiController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,20 +25,14 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<List<UserEntity>> getAllUsers(@PathVariable("id") final String id) {
-        Iterable<UserEntity> users = userService.getAllUser();
-
-        return ResponseEntity.ok(IteratorUtils.toList(users.iterator()));
+        return ResponseEntity.ok(userService.getAllUser());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getUser(@PathVariable("id") final String id) {
         Optional<UserEntity> user = userService.getUserById(id);
 
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return user.<ResponseEntity>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("")

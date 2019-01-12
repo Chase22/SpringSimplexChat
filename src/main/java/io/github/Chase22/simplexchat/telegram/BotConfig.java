@@ -27,7 +27,7 @@ public class BotConfig {
             throw new ValidationException("Invalid bot token");
         }
 
-        if (!botUsername.matches("\\w+bot")) {
+        if (!botUsername.toLowerCase().matches("\\w+bot")) {
             log.error("Invalid bot name: {}", botUsername);
             throw new ValidationException("Invalid bot name");
         }

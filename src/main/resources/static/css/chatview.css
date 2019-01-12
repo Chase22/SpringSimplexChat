@@ -29,7 +29,12 @@ body {
     max-height: 100%;
 }
 
+.chat-message{
+    margin-left: 2px;
+}
+
 .chat-message-timestamp {
+    margin-right: 5px;
     color: dodgerblue;
 }
 
