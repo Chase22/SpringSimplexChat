@@ -1,7 +1,7 @@
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
+    mode: 'development',
     entry: './src/chatview.js',
     output: {
         path: path.resolve(__dirname, '../resources/static/js'),
