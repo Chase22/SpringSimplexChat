@@ -1,6 +1,6 @@
 import {Chatconector} from './chatconector';
-import {isSameDay} from "./dateUtils";
 import {createChatMessage} from "./messageparser";
+import moment from 'moment';
 
 const connector = new Chatconector(document.getElementById("chatid").value);
 
@@ -30,15 +30,13 @@ const updateMessages = () => {
             data.forEach(value => {
                 console.log(value);
                 if (!document.getElementById(value.id)) {
-                    let date = new Date(value.timestamp);
+                    let date = moment(value.timestamp);
 
-                    if (lastDate == null) lastDate = date;
-
-                    if (!isSameDay(date, lastDate)) {
+                    if (lastDate == null || !date.isSame(lastDate, 'day')) {
                         const elem = document.createElement("div");
                         elem.classList.add("date-message");
-                        elem.id = date.getTime().toString();
-                        elem.innerText = date.toLocaleDateString();
+                        elem.id = date.unix().toString();
+                        elem.innerText = date.format("L");
                         chatBox.appendChild(elem);
                         console.log("Append child: " + elem);
 
