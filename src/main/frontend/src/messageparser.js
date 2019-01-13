@@ -1,4 +1,5 @@
 import moment from 'moment';
+import linkifyHtml from 'linkifyjs/html';
 
 export function createChatMessage(value) {
     const time = moment(value.timestamp);
@@ -6,7 +7,7 @@ export function createChatMessage(value) {
     let divMessage = document.createElement("div");
     let timestamp = createDiv(time.format('LTS'), "chat-message-timestamp");
     let message = document.createElement("div");
-    let messageContent = createDiv(value.message, "chat-message-message-content");
+    let messageContent = createDiv(linkifyHtml(value.message), "chat-message-message-content");
     let user = createDiv(value.userId, "chat-message-user");
 
     divMessage.id = value.id;
