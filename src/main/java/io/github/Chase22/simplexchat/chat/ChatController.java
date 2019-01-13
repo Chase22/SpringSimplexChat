@@ -1,7 +1,6 @@
 package io.github.Chase22.simplexchat.chat;
 
 import io.github.Chase22.simplexchat.message.MessageEntity;
-import io.github.Chase22.simplexchat.message.MessageFormatter;
 import io.github.Chase22.simplexchat.message.MessageRVO;
 import io.github.Chase22.simplexchat.misc.RestApiController;
 import org.springframework.http.HttpStatus;
@@ -15,11 +14,9 @@ import java.util.stream.Collector;
 @RestApiController("api/chat")
 public class ChatController {
     private final ChatService chatService;
-    private final MessageFormatter messageFormatter;
 
-    public ChatController(final ChatService chatService, final MessageFormatter messageFormatter) {
+    public ChatController(final ChatService chatService) {
         this.chatService = chatService;
-        this.messageFormatter = messageFormatter;
     }
 
     @GetMapping("test")
