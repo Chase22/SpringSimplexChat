@@ -2,6 +2,7 @@ package io.github.Chase22.simplexchat.image;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "images")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ImageEntity {
 
     @Id

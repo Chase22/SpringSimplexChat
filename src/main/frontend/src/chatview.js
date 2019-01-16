@@ -25,10 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 const updateMessages = () => {
     const chatBox = document.getElementById("messageBox");
 
-    connector.getUpgrades(lastId)
+    connector.getUpdates(lastId)
         .then(data => {
             data.forEach(value => {
-                console.log(value);
                 if (!document.getElementById(value.id)) {
                     let date = moment(value.timestamp);
 

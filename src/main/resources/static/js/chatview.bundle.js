@@ -97,17 +97,6 @@ module.exports = __webpack_require__(/*! ./lib/linkify-html */ "./node_modules/l
 
 /***/ }),
 
-/***/ "./node_modules/linkifyjs/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/linkifyjs/index.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./lib/linkify */ "./node_modules/linkifyjs/lib/linkify.js");
-
-/***/ }),
-
 /***/ "./node_modules/linkifyjs/lib/linkify-html.js":
 /*!****************************************************!*\
   !*** ./node_modules/linkifyjs/lib/linkify-html.js ***!
@@ -19974,7 +19963,7 @@ class Chatconector {
     });
   }
 
-  getUpgrades(offset) {
+  getUpdates(offset) {
     return fetch(`/api/chat/${this.chatId}/message?offset=${offset}`).then(response => response.json());
   }
 
@@ -20014,10 +20003,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const updateMessages = () => {
   const chatBox = document.getElementById("messageBox");
-  connector.getUpgrades(lastId).then(data => {
+  connector.getUpdates(lastId).then(data => {
     data.forEach(value => {
-      console.log(value);
-
       if (!document.getElementById(value.id)) {
         let date = moment__WEBPACK_IMPORTED_MODULE_2___default()(value.timestamp);
 
@@ -20059,35 +20046,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createDiv", function() { return createDiv; });
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var linkifyjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! linkifyjs */ "./node_modules/linkifyjs/index.js");
-/* harmony import */ var linkifyjs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(linkifyjs__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var linkifyjs_html__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! linkifyjs/html */ "./node_modules/linkifyjs/html.js");
-/* harmony import */ var linkifyjs_html__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(linkifyjs_html__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var linkifyjs_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! linkifyjs/html */ "./node_modules/linkifyjs/html.js");
+/* harmony import */ var linkifyjs_html__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(linkifyjs_html__WEBPACK_IMPORTED_MODULE_1__);
 
-
-;
 
 function createChatMessage(value) {
   const time = moment__WEBPACK_IMPORTED_MODULE_0___default()(value.timestamp);
   let divMessage = document.createElement("div");
   let timestamp = createDiv(time.format('LTS'), "chat-message-timestamp");
   let message = document.createElement("div");
-  let messageContent = createDiv(linkifyjs_html__WEBPACK_IMPORTED_MODULE_2___default()(value.message), "chat-message-message-content");
   let user = createDiv(value.userId, "chat-message-user");
+  parseMessage(value.message, message);
   divMessage.id = value.id;
   divMessage.classList.add("chat-message");
   divMessage.appendChild(timestamp);
   message.classList.add("chat-message-message");
-  message.appendChild(messageContent);
   message.appendChild(user);
   divMessage.append(message);
   return divMessage;
 }
 function createDiv(innerText, classname) {
-  let span = document.createElement("div");
-  span.innerHTML = innerText;
-  span.classList.add(classname);
-  return span;
+  let div = document.createElement("div");
+  div.innerHTML = innerText;
+  div.classList.add(classname);
+  return div;
+}
+
+function parseMessage(text, message) {
+  let div = document.createElement("div");
+  div.classList.add("chat-message-message-content");
+  message.appendChild(div);
+
+  if (text.startsWith("{{image}}")) {
+    handleImage(text, div);
+  } else {
+    div.innerHTML = linkifyjs_html__WEBPACK_IMPORTED_MODULE_1___default()(text);
+  }
+}
+
+function handleImage(messageText, div) {
+  const id = messageText.replace("{{image}}", "");
+  let img = document.createElement("img");
+  img.classList.add("chat-message-message-image");
+  fetch('/image/' + id).then(value => {
+    if (value.ok) {
+      value.json().then(image => {
+        img.src = 'data:image/png;base64,' + image.data;
+        div.appendChild(img);
+      });
+    } else {
+      div.appendChild(createDiv("Image not found", "chat-message-message-image-error"));
+    }
+  });
 }
 
 /***/ })

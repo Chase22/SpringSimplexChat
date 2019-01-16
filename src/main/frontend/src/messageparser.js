@@ -7,8 +7,9 @@ export function createChatMessage(value) {
     let divMessage = document.createElement("div");
     let timestamp = createDiv(time.format('LTS'), "chat-message-timestamp");
     let message = document.createElement("div");
-    let messageContent = createDiv(linkifyHtml(value.message), "chat-message-message-content");
     let user = createDiv(value.userId, "chat-message-user");
+
+    parseMessage(value.message, message);
 
     divMessage.id = value.id;
     divMessage.classList.add("chat-message");
@@ -16,8 +17,6 @@ export function createChatMessage(value) {
 
     message.classList.add("chat-message-message");
 
-
-    message.appendChild(messageContent);
     message.appendChild(user);
 
     divMessage.append(message);
@@ -26,8 +25,38 @@ export function createChatMessage(value) {
 }
 
 export function createDiv(innerText, classname) {
-    let span = document.createElement("div");
-    span.innerHTML = innerText;
-    span.classList.add(classname);
-    return span;
+    let div = document.createElement("div");
+    div.innerHTML = innerText;
+    div.classList.add(classname);
+    return div;
+}
+
+function parseMessage(text, message) {
+    let div = document.createElement("div");
+    div.classList.add("chat-message-message-content");
+    message.appendChild(div);
+
+    if (text.startsWith("{{image}}")) {
+        handleImage(text, div);
+    } else {
+        div.innerHTML = linkifyHtml(text);
+    }
+}
+
+function handleImage(messageText, div) {
+    const id = messageText.replace("{{image}}", "");
+
+    let img = document.createElement("img");
+    img.classList.add("chat-message-message-image");
+
+    fetch('/image/'+id).then(value => {
+        if(value.ok) {
+            value.json().then(image => {
+                img.src = 'data:image/png;base64,'+image.data;
+                div.appendChild(img);
+            });
+        } else {
+            div.appendChild(createDiv("Image not found", "chat-message-message-image-error"));
+        }
+    });
 }

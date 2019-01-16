@@ -1,5 +1,6 @@
 package io.github.Chase22.simplexchat.image;
 
+import io.github.Chase22.simplexchat.misc.RestApiController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 import static org.apache.http.entity.ContentType.IMAGE_PNG;
 
 @Slf4j
-@RestController("/image")
+@RestApiController("/image")
 public class ImageController {
     private final ImageService imageService;
 

@@ -21,7 +21,7 @@ export class Chatconector {
         });
     }
 
-    getUpgrades(offset) {
+    getUpdates(offset) {
         return fetch(`/api/chat/${this.chatId}/message?offset=${offset}`)
             .then((response) => response.json());
     }
