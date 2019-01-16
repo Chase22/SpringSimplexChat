@@ -28,7 +28,7 @@ public class ImageService {
     }
 
     public File imageToFile(Image image) throws IOException {
-        File file = File.createTempFile("", "png");
+        File file = File.createTempFile( image.getId(), "png");
         FileOutputStream fos = new FileOutputStream(file);
         fos.write(Base64Utils.decodeFromString(image.getData()));
         fos.close();
