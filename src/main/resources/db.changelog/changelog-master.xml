@@ -5,4 +5,5 @@
     <include file="changelog-base.xml" relativeToChangelogFile="true"/>
     <include file="001-add-telegram-user-id.xml" relativeToChangelogFile="true"/>
     <include file="002-extend-message-length.xml" relativeToChangelogFile="true"/>
+    <include file="003-add-image-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
