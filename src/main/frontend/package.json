@@ -13,8 +13,11 @@
   "author": "chase",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.23.0",
-    "linkifyjs": "^2.1.7"
+    "@uppy/core": "^0.29.1",
+    "@uppy/dashboard": "^0.29.1",
+    "@uppy/xhr-upload": "^0.29.1",
+    "linkifyjs": "^2.1.7",
+    "moment": "^2.23.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
