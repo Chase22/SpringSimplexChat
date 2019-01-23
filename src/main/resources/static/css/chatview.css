@@ -39,6 +39,11 @@ body {
 
 }
 
+.chat-message-message-image {
+    width: 60%;
+    max-height: 500px;
+}
+
 .date-message {
     text-align: center;
     background-color: lightblue;
