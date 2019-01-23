@@ -5,6 +5,7 @@ import io.github.Chase22.simplexchat.message.MessageRVO;
 import io.github.Chase22.simplexchat.misc.RestApiController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
@@ -44,6 +45,7 @@ public class ChatController {
                 .orElseThrow(ChatNotFoundException::new)
                 .stream()
                 .filter(messageEntity -> messageEntity.getId() > offset)
+                .filter(messageEntity -> !StringUtils.isEmpty(messageEntity.getMessage()))
                 .sorted(Comparator.comparingLong(MessageEntity::getTimestamp))
                 .peek(messageEntity -> messageEntity.setMessage(HtmlUtils.htmlEscape(messageEntity.getMessage())))
                 .map(MessageEntity::toRVO)
