@@ -51,6 +51,6 @@ const updateMessages = () => {
     const node = Array.from(chatBox.childNodes)[chatBox.childNodes.length-1];
 
     if(node != null && node.nodeType === Node.ELEMENT_NODE) {
-        node.scrollIntoView();
+        // node.scrollIntoView();
     }
 };
