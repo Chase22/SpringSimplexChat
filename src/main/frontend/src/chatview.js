@@ -2,7 +2,9 @@ import {Chatconector} from './chatconector';
 import {createChatMessage} from "./messageparser";
 import moment from 'moment';
 
-const connector = new Chatconector(document.getElementById("chatid").value);
+import {uppy, uppyInstance} from "./uppy";
+
+const connector = new Chatconector(window.chatId);
 
 const usernameField = document.getElementById("username");
 const messageField = document.getElementById("message");
@@ -11,15 +13,16 @@ let lastId = -1;
 let lastDate = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('sendMessageForm').addEventListener("submit", (e) => {
+    document.getElementById('submit').addEventListener("click", (e) => {
         e.preventDefault();
-
         connector.sendMessage(usernameField.value, messageField.value).then(() => updateMessages);
+        uppyInstance.reset();
     });
 
     setInterval(updateMessages, 10000);
 
     updateMessages();
+    uppy(messageField);
 });
 
 const updateMessages = () => {
