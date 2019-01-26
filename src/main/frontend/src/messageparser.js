@@ -49,7 +49,7 @@ function handleImage(messageText, div) {
     let img = document.createElement("img");
     img.classList.add("chat-message-message-image");
 
-    fetch('/image/'+id).then(value => {
+    fetch('/api/image/'+id).then(value => {
         if(value.ok) {
             value.json().then(image => {
                 img.src = 'data:image/png;base64,'+image.data;

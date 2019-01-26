@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import static org.apache.http.entity.ContentType.IMAGE_PNG;
 
 @Slf4j
-@RestApiController("/image")
+@RestApiController("/api/image")
 public class ImageController {
     private final ImageService imageService;
 
