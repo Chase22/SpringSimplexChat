@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/chatview.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/chatview.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -31815,10 +31815,10 @@ module.exports = function (text, test, separator) {
 
 /***/ }),
 
-/***/ "./src/chatconector.js":
-/*!*****************************!*\
-  !*** ./src/chatconector.js ***!
-  \*****************************/
+/***/ "./src/js/chatconector.js":
+/*!********************************!*\
+  !*** ./src/js/chatconector.js ***!
+  \********************************/
 /*! exports provided: Chatconector */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -31854,20 +31854,20 @@ class Chatconector {
 
 /***/ }),
 
-/***/ "./src/chatview.js":
-/*!*************************!*\
-  !*** ./src/chatview.js ***!
-  \*************************/
+/***/ "./src/js/chatview.js":
+/*!****************************!*\
+  !*** ./src/js/chatview.js ***!
+  \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _chatconector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chatconector */ "./src/chatconector.js");
-/* harmony import */ var _messageparser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./messageparser */ "./src/messageparser.js");
+/* harmony import */ var _chatconector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chatconector */ "./src/js/chatconector.js");
+/* harmony import */ var _messageparser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./messageparser */ "./src/js/messageparser.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _uppy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./uppy */ "./src/uppy.js");
+/* harmony import */ var _uppy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./uppy */ "./src/js/uppy.js");
 
 
 
@@ -31919,10 +31919,10 @@ const updateMessages = () => {
 
 /***/ }),
 
-/***/ "./src/messageparser.js":
-/*!******************************!*\
-  !*** ./src/messageparser.js ***!
-  \******************************/
+/***/ "./src/js/messageparser.js":
+/*!*********************************!*\
+  !*** ./src/js/messageparser.js ***!
+  \*********************************/
 /*! exports provided: createChatMessage, createDiv */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -31988,10 +31988,10 @@ function handleImage(messageText, div) {
 
 /***/ }),
 
-/***/ "./src/uppy.js":
-/*!*********************!*\
-  !*** ./src/uppy.js ***!
-  \*********************/
+/***/ "./src/js/uppy.js":
+/*!************************!*\
+  !*** ./src/js/uppy.js ***!
+  \************************/
 /*! exports provided: uppyInstance, uppy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

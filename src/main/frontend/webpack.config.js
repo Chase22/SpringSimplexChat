@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/chatview.js',
+    entry: './src/js/chatview.js',
     output: {
         path: path.resolve(__dirname, '../resources/static/js'),
         filename: 'chatview.bundle.js'
@@ -19,6 +19,10 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.scss$/,
+                use: ["style-loader","css-loader","sass-loader"]
             }
         ]
     },
