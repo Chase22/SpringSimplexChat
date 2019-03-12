@@ -37,11 +37,11 @@ public class ChatController {
     }
 
     @GetMapping("/{id}/message")
-    public List<MessageRVO> getMessages(@PathVariable("id") String id,
+    public MessageListRvo getMessages(@PathVariable("id") String id,
                                         @RequestParam(value = "offset", defaultValue = "-1") Integer offset,
                                         @RequestParam(value = "limit", defaultValue = "100") Integer limit) {
 
-        return chatService.getChatById(id).map(ChatEntity::getMessages)
+        return new MessageListRvo(chatService.getChatById(id).map(ChatEntity::getMessages)
                 .orElseThrow(ChatNotFoundException::new)
                 .stream()
                 .filter(messageEntity -> messageEntity.getId() > offset)
@@ -49,7 +49,7 @@ public class ChatController {
                 .sorted(Comparator.comparingLong(MessageEntity::getTimestamp))
                 .peek(messageEntity -> messageEntity.setMessage(HtmlUtils.htmlEscape(messageEntity.getMessage())))
                 .map(MessageEntity::toRVO)
-                .collect(lastN(limit));
+                .collect(lastN(limit)));
     }
 
     @PostMapping("")
